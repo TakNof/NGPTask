@@ -30,17 +30,14 @@ public class PlayerCameraController : MonoBehaviour{
         }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
         if (_cmThirdPersonCamera?.Target != null)
             _cmThirdPersonCamera.Target.TrackingTarget ??= _cmCameraGuide;
-
-        AllowCursor(false);
     }
 
-    // Update is called once per frame
     void Update(){
-        HandleCamera();
+        if(!Cursor.visible)
+            HandleCamera();
     }
 
     private void HandleCamera(){
@@ -60,11 +57,6 @@ public class PlayerCameraController : MonoBehaviour{
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
-    }
-
-    public void AllowCursor(bool state){
-        Cursor.visible = state;
-        Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
     }
 
     void Reset(){

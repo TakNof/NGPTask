@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2442224915451526609, guid: cb2423f8b7dc20243b0f8eb78127cb26, type: 3}
       propertyPath: m_Name
-      value: IconFrame (1) Variant
+      value: IconFrame Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3788918391341148847, guid: cb2423f8b7dc20243b0f8eb78127cb26, type: 3}
       propertyPath: m_Pivot.x
@@ -107,7 +107,7 @@ PrefabInstance:
     - target: {fileID: 6576130097850205410, guid: cb2423f8b7dc20243b0f8eb78127cb26, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 5ad362f8eda109543bd5c9dd009a7783, type: 3}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3789615587341071314, guid: cb2423f8b7dc20243b0f8eb78127cb26, type: 3}
