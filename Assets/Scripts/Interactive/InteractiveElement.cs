@@ -1,16 +1,29 @@
 using UnityEngine;
+[RequireComponent(typeof(BoxCollider))]
+public class InteractiveElement : MonoBehaviour{
+    private readonly string layerName = "Interactive";
+    private readonly string highlightLayerName = "InteractiveHighlight";
 
-public class InteractiveElement : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    void Start(){
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         
+    }
+
+    private void SetLayer(string layerName){
+        gameObject.layer = LayerMask.NameToLayer(layerName);
+    }
+
+    void Reset(){
+        SetLayer(layerName);
+    }
+
+    [ContextMenu("Delete all interaction components")]
+    private void DeleteAllInteractionComponents() {
+        Debug.Log("All interaction components were deleted.");
+        SetLayer("Default");
+        DestroyImmediate(this);
     }
 }

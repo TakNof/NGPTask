@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInputController))]
@@ -12,6 +13,7 @@ public class PlayerMovementController : MonoBehaviour{
     [Header("Data")]
     [Header("Movement")]
     [SerializeField] private float currentSpeed;
+    [HideInInspector] public float CurrentSpeed {get{return currentSpeed;}}
     [SerializeField] private float targetSpeed;
 
     [Header("Rotation")]
@@ -23,6 +25,8 @@ public class PlayerMovementController : MonoBehaviour{
     [Header("Movement")]
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
+    [SerializeField] private float speedReachOffset = 0.1f;
+    [SerializeField] private float speedChangeRate;
 
     [Header("Rotation")]
     [SerializeField] private float movementRotationSmoothTime;
@@ -33,6 +37,7 @@ public class PlayerMovementController : MonoBehaviour{
     [SerializeField] private float groundedOffset;
     [SerializeField] private float  groundedRadius;
     [SerializeField] private LayerMask groundLayers;
+    public UnityEvent<bool> OnGroundedStateChanged;
 
     //gizmos test colors
     private readonly Color transparentGreen =new(0.0f, 1.0f, 0.0f, 0.35f);
@@ -53,15 +58,22 @@ public class PlayerMovementController : MonoBehaviour{
     }
 
     private void HandleMovement(){
-        if(_input.MoveInput == Vector2.zero || !isGrounded) return;
+        var normalizedMoveInput = new Vector3(_input.MoveInput.x, 0, _input.MoveInput.y).normalized;
+        var normalizedMoveInputMag = normalizedMoveInput.magnitude;
 
         targetSpeed = _input.SprintInput ? runSpeed : walkSpeed;
+        targetSpeed *= normalizedMoveInputMag;
 
-        currentSpeed = targetSpeed;
+        if(Mathf.Abs(currentSpeed - targetSpeed) > speedReachOffset){
+            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime * speedChangeRate);
+            currentSpeed = Mathf.Round(currentSpeed * 1000f) / 1000f;
+        }else{
+            currentSpeed = targetSpeed;
+        }
 
-        var NormalizedMoveInput = new Vector3(_input.MoveInput.x, 0, _input.MoveInput.y).normalized;
+        if(normalizedMoveInputMag <= 0.0001f || !isGrounded) return;
 
-        var currentMovementDirection = Mathf.Atan2(NormalizedMoveInput.x, NormalizedMoveInput.z) * Mathf.Rad2Deg;
+        var currentMovementDirection = Mathf.Atan2(normalizedMoveInput.x, normalizedMoveInput.z) * Mathf.Rad2Deg;
 
         targetMovement = currentMovementDirection + _mainCamera.transform.eulerAngles.y;
         targetRotation = targetMovement; //For now, I'll see if I can implement the other things first
@@ -76,11 +88,15 @@ public class PlayerMovementController : MonoBehaviour{
     }
 
     private void GroundedCheck(){
-        // set sphere position, with offset
         Vector3 spherePosition = new(transform.position.x, transform.position.y - groundedOffset,
             transform.position.z);
-        isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers,
+        var newGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers,
             QueryTriggerInteraction.Ignore);
+
+        if(newGrounded != isGrounded){
+            isGrounded = newGrounded;
+            OnGroundedStateChanged?.Invoke(isGrounded);
+        }
     }
 
     private void OnDrawGizmosSelected(){
