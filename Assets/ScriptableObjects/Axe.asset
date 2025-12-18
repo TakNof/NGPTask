@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a434972c66e41c40b559634e76d4a1d, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  prefab: {fileID: 5544579523395048652, guid: 771fa6c2082ce6a49970668b26689f72, type: 3}
+  isEquippable: 1
+  isStackable: 0
   type: 0
   action: 0
-  isStackable: 1
   sprite: {fileID: 21300000, guid: 719c2201c2f5f6c4aafffaeb5abdf5f9, type: 3}
+  description: "A mighty weapon, wrought in the flames of Mirkhal\u2019s legendary
+    forge. Few arms of such virtue are found in these latter days."

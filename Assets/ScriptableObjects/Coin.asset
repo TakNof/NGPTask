@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a434972c66e41c40b559634e76d4a1d, type: 3}
+  m_Name: Coin
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  prefab: {fileID: 2100123175933297664, guid: b2960d2994233ca41b26225f5575dd2f, type: 3}
+  isEquippable: 0
+  isStackable: 1
+  type: 1
+  action: 1
+  sprite: {fileID: 21300000, guid: 108ca3e7dda90d945b0914bf9259ec94, type: 3}
+  description: Pharxal mineral, possessed of great might. By its virtue, a weapon
+    may be imbued with greater power.

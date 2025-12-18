@@ -10,9 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a434972c66e41c40b559634e76d4a1d, type: 3}
-  m_Name: Rock
+  m_Name: Potion
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  type: 1
-  action: 1
+  prefab: {fileID: 2176956798436522071, guid: b7e3f221e28ade840b8e6ed45dd1c034, type: 3}
+  isEquippable: 0
   isStackable: 1
-  sprite: {fileID: 21300000, guid: 108ca3e7dda90d945b0914bf9259ec94, type: 3}
+  type: 2
+  action: 2
+  sprite: {fileID: 21300000, guid: b478ba0ce9a8a754dbc478c150fcf5db, type: 3}
+  description: "\u201CA draught of health\u2014wondrous are the works of Phoenix
+    tears mingled with shards of Nah\u2019trah."

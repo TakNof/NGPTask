@@ -2,15 +2,17 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerObjectDetectionController : MonoBehaviour{
-    public UnityEvent<Collider> OnTriggerEntered;
-    public UnityEvent<Collider> OnTriggerExited;
+    public UnityEvent<InteractiveElement> OnTriggerEntered;
+    public UnityEvent<InteractiveElement> OnTriggerExited;
 
     void OnTriggerEnter(Collider other){
-        OnTriggerEntered?.Invoke(other);
+        var ie = other.GetComponent<InteractiveElement>();
+        OnTriggerEntered?.Invoke(ie);
     }
 
     void OnTriggerExit(Collider other){
-        OnTriggerExited?.Invoke(other);
+        var ie = other.GetComponent<InteractiveElement>();
+        OnTriggerExited?.Invoke(ie);
     }
     void Start()
     {

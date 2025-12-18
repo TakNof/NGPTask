@@ -1,15 +1,21 @@
 using UnityEngine;
-[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(Collider))]
 public class InteractiveElement : MonoBehaviour{
+    public ItemData itemData;
+
     private readonly string layerName = "Interactive";
     private readonly string highlightLayerName = "InteractiveHighlight";
 
-    void Start(){
-        
+    public string GetName(){
+        return itemData.name;
     }
 
-    void Update(){
-        
+    public void SetHighlight(){
+        SetLayer(highlightLayerName);
+    }
+
+    public void SetNormal(){
+        SetLayer(layerName);
     }
 
     private void SetLayer(string layerName){

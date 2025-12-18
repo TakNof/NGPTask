@@ -31,6 +31,7 @@ public class PlayerInputController : MonoBehaviour{
 
     //UI
     [HideInInspector] public InputAction cancelAction;
+    [HideInInspector] public InputAction dropItemAction;
 
 
     //Public References
@@ -67,6 +68,7 @@ public class PlayerInputController : MonoBehaviour{
         sprintAction.canceled += (ctx) => sprintInput = false;
 
         cancelAction = playerInput.actions["Cancel"];
+        dropItemAction = playerInput.actions["DropItem"]; 
 
         // attackAction.performed += (ctx) => attackInput = true;
         // attackAction.canceled += (ctx) => attackInput = false;
