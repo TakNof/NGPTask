@@ -1,18 +1,15 @@
 using UnityEngine;
 using Unity.Cinemachine;
-using Unity.VisualScripting;
 
 [RequireComponent(typeof(PlayerInputController))]
-[RequireComponent(typeof(PlayerMovementController))]
 public class PlayerCameraController : MonoBehaviour{
     [Header("References")]
     [SerializeField] private PlayerInputController _input;
-    [SerializeField] private PlayerMovementController _movementCtrl;
     [SerializeField] private CinemachineCamera _cmThirdPersonCamera;
     [SerializeField] private Transform _cmCameraGuide;
 
     [Header("Settings")]
-    [SerializeField] private float Sensibility = 1f;
+    public float Sensibility = 5f;
     [SerializeField] private float TopClamp = 70.0f;
     [SerializeField] private float BottomClamp = -30.0f;
 
@@ -61,6 +58,5 @@ public class PlayerCameraController : MonoBehaviour{
 
     void Reset(){
         _input = GetComponent<PlayerInputController>();
-        _movementCtrl = GetComponent<PlayerMovementController>();
     }
 }

@@ -234,7 +234,8 @@ public class InventoryManager : MonoBehaviour{
                 slot.transform.childCount != 2 ||
                 itemInSlot.itemData != inventoryItem.itemData ||
                 !itemInSlot.itemData.isStackable ||
-                itemInSlot.amount >= maxStackAmount)
+                itemInSlot.amount >= maxStackAmount ||
+                itemInSlot.amount + inventoryItem.amount >= maxStackAmount)
             {
                 return false;
             }

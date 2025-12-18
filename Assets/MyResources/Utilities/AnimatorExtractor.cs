@@ -1,7 +1,7 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using System.IO;
-
 public class AnimationExtractor : EditorWindow
 {
     private string folderPath = "Assets/"; // Carpeta de los FBX
@@ -92,3 +92,4 @@ public class AnimationExtractor : EditorWindow
         AssetDatabase.Refresh();
     }
 }
+#endif
