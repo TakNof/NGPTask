@@ -68,6 +68,14 @@ public class PlayerCombatController : MonoBehaviour{
         return true;
     }
 
+    public void DeleteHandsEquipment(){
+        if(leftHandEquippedObject != null)
+            Destroy(leftHandEquippedObject.gameObject);
+
+        if(rightHandEquippedObject != null)
+            Destroy(rightHandEquippedObject.gameObject);
+    }
+
     void Reset(){
         _input = GetComponent<PlayerInputController>();
     }

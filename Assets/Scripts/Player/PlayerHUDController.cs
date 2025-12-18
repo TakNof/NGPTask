@@ -10,6 +10,7 @@ public class PlayerHUDController : MonoBehaviour{
     [SerializeField] private PlayerInteractionController _interactionCtrl;
     [SerializeField] private Canvas HUDCanvas;
     [SerializeField] private Canvas InventoryCanvas;
+    [SerializeField] private Canvas PauseCanvas;
 
     [SerializeField] private TMP_Text indicativeText;
 
@@ -17,6 +18,7 @@ public class PlayerHUDController : MonoBehaviour{
     private readonly string HintText = "Hold F to grab ";
 
     void Start(){
+        _input.pauseAction.performed += (ctx) => ShowPauseMenu();
         _input.openInventoryAction.performed += (ctx) => ShowInventory();
         _input.cancelAction.performed += (ctx) => HideDisplayedCanvas();
 
@@ -73,6 +75,10 @@ public class PlayerHUDController : MonoBehaviour{
 
     private void ShowInventory(){
         SetUIState(InventoryCanvas, HUDCanvas, true);
+    }
+
+    private void ShowPauseMenu(){
+        SetUIState(PauseCanvas, HUDCanvas, true);
     }
 
     private void HideDisplayedCanvas(){
