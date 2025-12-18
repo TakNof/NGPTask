@@ -4,10 +4,15 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerInputController))]
 [RequireComponent(typeof(PlayerCombatController))]
+[RequireComponent(typeof(CharacterController))]
 public class PlayerInteractionController : MonoBehaviour{
     [Header("References")]
     [SerializeField] private PlayerInputController _input;
     [SerializeField] private PlayerObjectDetectionController _detectionCtrl;
+    [SerializeField] private CharacterController _charCtrl;
+
+    [Header("Audio Clips")]
+    [SerializeField] private AudioClip GrabObjectClip;
 
     [Header("Detection")]
     [SerializeField] private List<InteractiveElement> detectedObjects;
@@ -60,19 +65,29 @@ public class PlayerInteractionController : MonoBehaviour{
         var detectedInteractive = detectedObjects[0];
 
         bool canAdd = InventoryManager.Instance.AddItemToInventory(detectedInteractive.itemData);
-        if(canAdd)
+        if (canAdd){
+            OnObjectMoved();
             OnInteractiveExited?.Invoke(detectedInteractive);
             Destroy(detectedInteractive.gameObject);
+        }
+            
     }
 
     private void SpawnDroppedItem(){
         var itemToSpawn = InventoryManager.Instance.DropItemFromInventory();
         if(itemToSpawn == null) return;
 
+        OnObjectMoved();
         Instantiate(itemToSpawn, transform.position + Vector3.up * 2 + transform.forward * 2, Quaternion.identity);
+    }
+
+    private void OnObjectMoved(){
+        if(GrabObjectClip == null) return;
+        AudioSource.PlayClipAtPoint(GrabObjectClip, transform.TransformPoint(_charCtrl.center), 0.5f);
     }
 
     void Reset(){
         _input = GetComponent<PlayerInputController>();
+        _charCtrl = GetComponent<CharacterController>();
     }
 }

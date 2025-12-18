@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,6 +10,9 @@ public class PlayerMovementController : MonoBehaviour{
     [SerializeField] private CharacterController _charCtrl;
     [SerializeField] private PlayerInputController _input;
     [SerializeField] private Camera _mainCamera;
+
+    [Header("Audio Clips")]
+    [SerializeField] private List<AudioClip> FootstepAudioClips;
 
     [Header("Data")]
     [Header("Movement")]
@@ -96,6 +100,15 @@ public class PlayerMovementController : MonoBehaviour{
         if(newGrounded != isGrounded){
             isGrounded = newGrounded;
             OnGroundedStateChanged?.Invoke(isGrounded);
+        }
+    }
+
+    private void OnFootstep(AnimationEvent animationEvent){
+        if (animationEvent.animatorClipInfo.weight > 0.5f){
+            if (FootstepAudioClips.Count > 0){
+                var index = Random.Range(0, FootstepAudioClips.Count);
+                AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_charCtrl.center), 0.5f);
+            }
         }
     }
 
